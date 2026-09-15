@@ -1,0 +1,40 @@
+@model Book
+@{
+    ViewData["Title"] = "Book details"; var current = Model.Loans.Where(l => l.Status == LoanStatus.Borrowed);
+}
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">BOOK DETAILS</p>
+        <h1>@Model.Title</h1>
+        <p>@Model.Author · @Model.Category</p>
+    </div>
+    <div><a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <a
+        class="btn btn-primary" asp-controller="Loans" asp-action="Create">New loan</a></div>
+    </div>
+    <div class="row g-4">
+        <div class="col-lg-5">
+            <section class="content-card detail-list">
+                <div><span>ISBN</span><strong>@(Model.Isbn ?? "Not supplied")</strong></div>
+                <div><span>Total copies</span><strong>@Model.TotalCopies</strong></div>
+                <div><span>Available copies</span><strong>@Model.AvailableCopies</strong></div>
+                <div><span>Status</span><strong>@(Model.AvailableCopies > 0 ? "Available" : "Unavailable")</strong></div>
+            </section>
+        </div>
+        <div class="col-lg-7">
+            <section class="content-card">
+                <div class="card-header-line">
+                    <h2>Current loans</h2><span>@current.Count()</span>
+                </div>@foreach(var loan in current){
+                <div class="overdue-item"><strong><a asp-controller="Loans"
+                                                         asp-action="Details" asp-route-id="@loan.Id">@loan.Member!.FullName</a></strong><span>Due
+                    @loan.DueDate.ToString("dd MMM yyyy")</span></div>
+                }
+                @if (!current.Any())
+                {
+                    <p class="muted mb-0">No
+                        copies are currently on loan.</p>
+                    }
+                </section>
+            </div>
+        </div>
+        <div class="mt-4"><a class="text-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete this book</a></div>

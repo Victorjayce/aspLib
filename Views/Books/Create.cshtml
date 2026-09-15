@@ -1,0 +1,21 @@
+@model Book
+@{
+    ViewData["Title"] = "Add book";
+}
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">CATALOGUE</p>
+        <h1>Add a book</h1>
+        <p>Add a title to the library collection.</p>
+    </div>
+</div>
+<form asp-action="Create" class="content-card form-card">
+    <partial name="_BookForm" model="Model" />
+    <div class="form-actions">
+        <a class="btn btn-light" asp-action="Index">Cancel</a><button class="btn btn-primary">Save
+        book</button>
+    </div>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

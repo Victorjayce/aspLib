@@ -1,0 +1,19 @@
+@model Book
+@{
+    ViewData["Title"] = "Delete book";
+}
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">CATALOGUE</p>
+        <h1>Delete book</h1>
+        <p>This cannot be undone.</p>
+    </div>
+</div>
+<section class="content-card">
+    <h2>Delete “@Model.Title”?</h2>
+    <p class="muted">Books with loan history cannot be deleted.</p>
+    <form asp-action="Delete"><input type="hidden" asp-for="Id" />
+        <a class="btn btn-light" asp-action="Details" asp-route-id="@Model.Id">Cancel</a>
+        <button class="btn btn-danger">Delete book</button>
+    </form>
+</section>
